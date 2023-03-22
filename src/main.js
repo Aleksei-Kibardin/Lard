@@ -14,8 +14,10 @@ import { createApp } from 'vue'
 import { registerPlugins } from '@/plugins'
 
 //v-mask
+
 const app = createApp(App)
 
 registerPlugins(app)
 
 app.mount('#app')
+

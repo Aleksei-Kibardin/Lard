@@ -16,6 +16,7 @@ export default defineConfig({
     vuetify({
       autoImport: true,
     }),
+    '@plugins/v-mask.js',
   ],
   define: { 'process.env': {} },
   resolve: {
@@ -33,6 +34,6 @@ export default defineConfig({
     ],
   },
   server: {
-    port: 3000,
+    port: 8080,
   },
 })

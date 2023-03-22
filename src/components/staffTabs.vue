@@ -35,7 +35,7 @@
   </div>
 </template>
 <script>
-console.log("1");
+console.log();
 </script>
 
 <style>

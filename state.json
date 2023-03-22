@@ -1,0 +1,44 @@
+{
+  "requests": [
+    {
+    "name": "Константинопольский Константин Константинович",
+    "inn": "79063320851",
+    "series": "4002",
+    "number": "571654",
+    "date_birth": "23.06.2001",
+    "age": "21",
+    "type_contract": "СМЗ",
+    "type_contact_id": "1",
+    "gender": "мужской",
+    "country": "Санкт-Петербург",
+    "country_id": "1",
+    "position": "промышленный альпинист",
+    "position_id": "1",
+    "status": {
+      "description": "Истекают все документы",
+      "tag_id": "1",
+      "tag": "red"
+        }
+    },
+    {
+      "name": "Константинопольский Константин Константинович",
+      "inn": "79063320851",
+      "series": "4002",
+      "number": "571654",
+      "date_birth": "23.06.2001",
+      "age": "21",
+      "type_contract": "СМЗ",
+      "type_contact_id": "1",
+      "gender": "мужской",
+      "country": "Санкт-Петербург",
+      "country_id": "1",
+      "position": "промышленный альпинист",
+      "position_id": "1",
+      "status": {
+        "description": "Истекают все документы",
+        "tag_id": "1",
+        "tag": "red"
+          }
+      }
+  ]
+}

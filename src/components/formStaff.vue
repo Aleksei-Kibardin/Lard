@@ -40,12 +40,12 @@
                 <v-col cols="12">
                         <v-text-field
                           v-model="date"
-                          mask="###.###.###-##"
+                          v-mask="'##-##-####'"
                           label="Дата Рождения"
                         ></v-text-field>
                         <v-text-field
                           v-model="pas"
-                          mask="###.###.###-##"
+                          v-mask="'####-######'"
                           label="Серия Номер паспорта"
                         ></v-text-field>
                 </v-col>

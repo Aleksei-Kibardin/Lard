@@ -2,20 +2,25 @@
   "name": "lard",
   "version": "0.0.0",
   "scripts": {
+    "serve": "vue-cli-service serve",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@devindex/vue-mask": "^2.0.3",
     "@mdi/font": "7.0.96",
+    "@vuepic/vue-datepicker": "^4.2.2",
     "roboto-fontface": "*",
     "v-mask": "^2.3.0",
     "vue": "^3.2.38",
     "vuetify": "^3.0.0",
+    "vuetify-mask": "^1.1.2",
     "webfontloader": "^1.0.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^3.0.3",
+    "json-server": "^0.17.2",
     "vite": "^3.1.9",
     "vite-plugin-vuetify": "^1.0.0-alpha.12"
   }
