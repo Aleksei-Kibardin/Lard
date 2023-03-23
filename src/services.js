@@ -16,7 +16,7 @@ async function getResoursce () {
     return res;
 }
 
-const getList = await getResoursce()
+let getList = await getResoursce()
 
 export{getList};
 

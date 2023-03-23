@@ -4,7 +4,24 @@
     style="max-width: 1205px; min-height: 1202px"
     class="bg-white pa-0"
   >
-    <search-bar />
+    <div>
+      <v-input class="flex-column px-7 pt-7">
+        <v-text-field
+          @keydown.enter="searchCard"
+          v-model="search"
+          append-inner-icon="mdi-magnify"
+          bg-color="#E8F1F4"
+          placeholder="Поиск сотрудника"
+          @input="inputSearch"
+          persistent-hint
+          hint="Например: Иванов Иван"
+          type="text"
+          variant="outlined"
+        >
+        </v-text-field>
+      </v-input>
+      <v-divider class="mt-3"></v-divider>
+    </div>
     <div class="mx-10 mt-7">
       <h1>Список сотрудников</h1>
       <staff-tabs />
@@ -12,7 +29,7 @@
 
     <div>
       <v-card
-        v-for="t in staffList"
+        v-for="t in paginatedCards"
         :key="
           (t.full_name,
           t.inn,
@@ -33,7 +50,8 @@
         <v-card-text>
           <div class="d-flex flex-row ml-2 mt-2">
             <div
-              style=" font-weight: 600, font-size: 18px, line-height: 120%, color: #2a358c;">
+              style=" font-weight: 600, font-size: 18px, line-height: 120%, color: #2a358c;"
+            >
               {{ t.full_name }}
             </div>
             <div
@@ -46,30 +64,35 @@
               {{ t.type_contract.title }}
             </div>
             <div class="px-1 ml-4" style="font-size: 14px">
-              {{t.position.name}}
+              {{ t.position.name }}
             </div>
           </div>
           <div class="ml-2 mt-2 d-md-inline-flex">
             <v-img :src="t.country.icon" height="20" width="20"> </v-img>
-            <div class="txt-content ml-3">{{t.country.slug}} {{t.series}} {{t.number}}</div>
+            <div class="txt-content ml-3">
+              {{ t.country.slug }} {{ t.series }} {{ t.number }}
+            </div>
             <v-divider class="ml-3" vertical></v-divider>
             <div class="txt-content ml-3">г. {{ t.address }}</div>
             <v-divider class="ml-3" vertical></v-divider>
-            <div class="txt-content ml-3">Дата рождения: {{t.date_birth}}</div>
+            <div class="txt-content ml-3">
+              Дата рождения: {{ t.date_birth }}
+            </div>
             <v-divider class="ml-3" vertical></v-divider>
-            <div class="txt-content ml-3">Возраст: {{t.age}}</div>
+            <div class="txt-content ml-3">Возраст: {{ t.age }}</div>
             <v-divider class="ml-3" vertical></v-divider>
-            <div class="txt-content ml-3">Пол: {{t.gender.title}}</div>
+            <div class="txt-content ml-3">Пол: {{ t.gender.title }}</div>
           </div>
           <div class="ml-2 mt-2">
             <p class="bg-red rounded pa-1 txt-content d-inline-flex">
-              {{t.status.description}}
+              {{ t.status.description }}
             </p>
           </div>
         </v-card-text>
       </v-card>
       <v-row class="d-flex justify-center mt-5">
         <v-btn
+          @click="cardsView()"
           prepend-icon="mdi-autorenew"
           variant="outlined"
           width="186"
@@ -84,20 +107,35 @@
 </template>
 
 <script setup>
-import searchBar from "./search.vue";
 import staffTabs from "./staffTabs.vue";
-import { getList  } from "../services.js";
-import {ref} from "vue"
+import { getList } from "../services.js";
+import { computed, ref } from "vue";
 
 components: {
-  searchBar;
   staffTabs;
 }
 
-const staffList = ref(getList)
+let maxCards = ref(4);
+
+let search = ref("");
+
+let staffList = () => {
+  return getList;
+};
 
 
-console.log(staffList)
+const searchCard = computed(() => {
+  return staffList().filter((j) => j.full_name.includes(search.value));
+});
+
+const paginatedCards = computed(() => {
+  return searchCard.value.slice(0, maxCards.value);
+});
+
+const cardsView = () => {
+  maxCards.value += 4;
+};
+
 </script>
 
 <style>
