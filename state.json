@@ -1,44 +1,260 @@
 {
-  "requests": [
-    {
-    "name": "Константинопольский Константин Константинович",
-    "inn": "79063320851",
-    "series": "4002",
-    "number": "571654",
-    "date_birth": "23.06.2001",
-    "age": "21",
-    "type_contract": "СМЗ",
-    "type_contact_id": "1",
-    "gender": "мужской",
-    "country": "Санкт-Петербург",
-    "country_id": "1",
-    "position": "промышленный альпинист",
-    "position_id": "1",
-    "status": {
-      "description": "Истекают все документы",
-      "tag_id": "1",
-      "tag": "red"
-        }
+  "tagList": [{
+      "id": 0,
+      "color": "#E2BD06",
+      "title": "Проблемные"
     },
     {
-      "name": "Константинопольский Константин Константинович",
-      "inn": "79063320851",
-      "series": "4002",
-      "number": "571654",
+      "id": 1,
+      "color": "#E52E2E",
+      "title": "Критические"
+    },
+    {
+      "id": 2,
+      "color": "#00B6ED",
+      "title": "Есть замечания"
+    },
+    {
+      "id": 3,
+      "color": "#00AE5B",
+      "title": "Выполнено"
+    }
+  ],
+  "countries": [{
+      "id": 0,
+      "title": "Россия",
+      "slug": "RU",
+      "icon": "../assets/rus.png"
+    },
+    {
+      "id": 1,
+      "title": "Таджикистан",
+      "slug": "TJ",
+      "icon": "../assets/taj.png"
+    },
+    {
+      "id": 2,
+      "title": "Узбекистан",
+      "slug": "UZ",
+      "icon": "../assets/uzb.png"
+    }
+  ],
+  "genders": [{
+      "id": 0,
+      "title": "мужской",
+      "slug": "муж."
+    },
+    {
+      "id": 1,
+      "title": "женский",
+      "slug": "жен."
+    }
+  ],
+  "positions": [{
+      "id": 1,
+      "name": "промышленный альпинист"
+    },
+    {
+      "id": 2,
+      "name": "менеджер по продажам"
+    }
+  ],
+  "types_contract": [{
+      "id": 0,
+      "title": "Трудовой договор",
+      "slug": "ТД"
+    },
+    {
+      "id": 1,
+      "title": "гражданско-правового характера",
+      "slug": "ГПХ"
+    },
+    {
+      "id": 2,
+      "title": "Самозанятый",
+      "slug": "СМЗ"
+    },
+    {
+      "id": 3,
+      "title": "Кандидат",
+      "slug": "КНД"
+    }
+  ],
+
+  "staffList": [{
+      "full_name": "Константинопольский Константин Константинович",
+      "series": "1234",
+      "number": "567890",
+      "inn": "1234567890",
+      "address": "г. Санкт-Петербург",
       "date_birth": "23.06.2001",
-      "age": "21",
-      "type_contract": "СМЗ",
-      "type_contact_id": "1",
-      "gender": "мужской",
-      "country": "Санкт-Петербург",
-      "country_id": "1",
-      "position": "промышленный альпинист",
-      "position_id": "1",
+      "age": 21,
+      "type_contract": {
+        "id": 2,
+        "title": "Самозанятый",
+        "slug": "СМЗ"
+      },
+      "gender": {
+        "id": 0,
+        "title": "мужской",
+        "slug": "муж."
+      },
+      "country": {
+        "id": 0,
+        "title": "Россия",
+        "slug": "RU",
+        "icon": "../assets/rus.jpg"
+      },
+      "position": {
+        "id": 1,
+        "name": "промышленный альпинист"
+      },
       "status": {
-        "description": "Истекают все документы",
-        "tag_id": "1",
-        "tag": "red"
-          }
+        "tag_id": 1,
+        "collor": "#E52E2E",
+        "title": "Критические",
+        "description": "Истекают все документы"
       }
+    },
+    {
+      "full_name": "Иванов Иван Иванович",
+      "series": "1234",
+      "number": "567890",
+      "inn": "1234567890",
+      "address": "г. Санкт-Петербург",
+      "date_birth": "23.06.2001",
+      "age": 21,
+      "type_contract": {
+        "id": 0,
+        "title": "Трудовой договор",
+        "slug": "ТД"
+      },
+      "gender": {
+        "id": 0,
+        "title": "мужской",
+        "slug": "муж."
+      },
+      "country": {
+        "id": 2,
+        "title": "Узбекистан",
+        "slug": "UZ",
+        "icon": "uzb"
+      },
+      "position": {
+        "id": 1,
+        "name": "промышленный альпинист"
+      },
+      "status": {
+        "tag_id": 0,
+        "collor": "#E2BD06",
+        "title": "Проблемные",
+        "description": "Истекает патент"
+      }
+    },
+    {
+      "full_name": "Константинопольский Константин Константинович",
+      "series": "1234",
+      "number": "567890",
+      "inn": "1234567890",
+      "address": "г. Санкт-Петербург",
+      "date_birth": "23.06.2001",
+      "age": 21,
+      "type_contract": {
+        "id": 2,
+        "title": "Самозанятый",
+        "slug": "СМЗ"
+      },
+      "gender": {
+        "id": 0,
+        "title": "мужской",
+        "slug": "муж."
+      },
+      "country": {
+        "id": 0,
+        "title": "Россия",
+        "slug": "RU",
+        "icon": "rus"
+      },
+      "position": {
+        "id": 1,
+        "name": "промышленный альпинист"
+      },
+      "status": {
+        "tag_id": 0,
+        "collor": "#E2BD06",
+        "title": "Проблемные",
+        "description": "Истекает патент"
+      }
+    },
+    {
+      "full_name": "Иванов Иван Иванович",
+      "series": "1234",
+      "number": "567890",
+      "inn": "1234567890",
+      "address": "г. Санкт-Петербург",
+      "date_birth": "23.06.2001",
+      "age": 21,
+      "type_contract": {
+        "id": 1,
+        "title": "гражданско-правового характера",
+        "slug": "ГПХ"
+      },
+      "gender": {
+        "id": 0,
+        "title": "мужской",
+        "slug": "муж."
+      },
+      "country": {
+        "id": 2,
+        "title": "Узбекистан",
+        "slug": "UZ",
+        "icon": "uzb"
+      },
+      "position": {
+        "id": 1,
+        "name": "промышленный альпинист"
+      },
+      "status": {
+        "tag_id": 2,
+        "collor": "#00B6ED",
+        "title": "Есть замечания",
+        "description": "Пропустил медосмотр"
+      }
+    },
+    {
+      "full_name": "Константинопольский Константин Константинович",
+      "series": "1234",
+      "number": "567890",
+      "inn": "1234567890",
+      "address": "г. Санкт-Петербург",
+      "date_birth": "23.06.2001",
+      "age": 21,
+      "type_contract": {
+        "id": 2,
+        "title": "Самозанятый",
+        "slug": "СМЗ"
+      },
+      "gender": {
+        "id": 0,
+        "title": "мужской",
+        "slug": "муж."
+      },
+      "country": {
+        "id": 0,
+        "title": "Россия",
+        "slug": "RU",
+        "icon": "rus"
+      },
+      "position": {
+        "id": 1,
+        "name": "промышленный альпинист"
+      },
+      "status": {
+        "tag_id": 3,
+        "collor": "#00AE5B",
+        "title": "Выполнено",
+        "description": "Прошел все процедуры"
+      }
+    }
   ]
 }

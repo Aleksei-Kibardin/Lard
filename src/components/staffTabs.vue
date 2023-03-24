@@ -34,12 +34,22 @@
     </v-chip-group>
   </div>
 </template>
-<script>
-console.log();
+<script setup>
+
+const activeted = () =>{
+
+}
+
 </script>
 
 <style>
 h1 {
   font-size: 26px;
+}
+.v-chip-group .v-chip.v-chip--selected:not(.v-chip--disabled) .v-chip__overlay {
+    opacity: 1 !important;
+}
+.v-chip--selected{
+  color: white;
 }
 </style>

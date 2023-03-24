@@ -1,72 +1,7 @@
 <template>
   <div>
     <v-row justify="center">
-      <v-dialog v-model="dialog" persistent width="1024">
-        <template v-slot:activator="{ props }">
-          <v-btn
-            class="bg-light-blue-lighten-2 ma-8 text-white"
-            height="64"
-            width="527"
-            v-bind="props"
-          >
-            <v-icon
-              size="x-large"
-              icon="mdi-account-plus-outline"
-              class="mr-3"
-            ></v-icon>
-            Добавить нового сотрудника
-          </v-btn>
-        </template>
-        <v-card>
-          <v-card-title>
-            <span class="text-h5">Профиль сотрудника</span>
-          </v-card-title>
-          <v-card-text>
-            <v-container>
-              <v-row>
-                <v-col cols="12" sm="6" md="4">
-                  <v-text-field label="Фамилия*" required></v-text-field>
-                </v-col>
-                <v-col cols="12" sm="6" md="4">
-                  <v-text-field label="Имя"></v-text-field>
-                </v-col>
-                <v-col cols="12" sm="6" md="4">
-                  <v-text-field
-                    label="Отчество*"
-                    persistent-hint
-                    required
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12">
-                        <v-text-field
-                          v-model="date"
-                          v-mask="'##-##-####'"
-                          label="Дата Рождения"
-                        ></v-text-field>
-                        <v-text-field
-                          v-model="pas"
-                          v-mask="'####-######'"
-                          label="Серия Номер паспорта"
-                        ></v-text-field>
-                </v-col>
-                <v-col cols="12">
-                  <v-text-field label="ИНН*" required></v-text-field>
-                </v-col>
-              </v-row>
-            </v-container>
-            <small>*Заполните все поля</small>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="blue-darken-1" variant="text" @click="dialog = false">
-              Close
-            </v-btn>
-            <v-btn color="blue-darken-1" variant="text" @click="dialog = false">
-              Save
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
+      <form-modal/>
     </v-row>
     <v-divider></v-divider>
     <div>
@@ -75,48 +10,84 @@
         <v-row>
           <v-col>
             <div class="sub-txt mb-2">гражданство</div>
-            <v-autocomplete
+            <v-select
+              v-model="country.countryTitle"
+              :items="['Россия', 'Узбекистан', 'Таджикистан']"
+              class="pb-1"
               label="Все страны"
               bg-color="#E8F1F4"
               variant="outlined"
               return-object
-              single-line
-            ></v-autocomplete>
+            ></v-select>
           </v-col>
           <v-col>
             <div class="sub-txt mb-2">Пол</div>
-            <v-autocomplete
+            <v-select
+              v-model="gender.genderTitle"
+              :items="['мужской', 'женский']"
               class="pb-1"
               label="Без разницы"
               bg-color="#E8F1F4"
               variant="outlined"
               return-object
-              single-line
-            ></v-autocomplete>
+            ></v-select>
           </v-col>
         </v-row>
         <div class="sub-txt mb-2">Должность</div>
-        <v-autocomplete
-          class="pb-1"
+        <v-select
           label="Все должности"
+          v-model="position.name"
+          :items="['промышленный альпинист', 'менеджер по продажам']"
+          class="pb-1"
           bg-color="#E8F1F4"
           variant="outlined"
           return-object
-          single-line
-        ></v-autocomplete>
+        ></v-select>
         <div class="sub-txt mt-n3">Тип договора</div>
         <div>
-          <v-checkbox label="ТД" hide-details></v-checkbox>
-          <v-checkbox label="ГПХ" hide-details></v-checkbox>
-          <v-checkbox label="СМЗ" hide-details></v-checkbox>
-          <v-checkbox label="Кандидат" hide-details></v-checkbox>
+          <v-checkbox
+            v-model="type_contract.slug"
+            value="ТД"
+            label="ТД"
+            hide-details
+          ></v-checkbox>
+          <v-checkbox
+            v-model="type_contract.slug"
+            value="ГПХ"
+            label="ГПХ"
+            hide-details
+          ></v-checkbox>
+          <v-checkbox
+            v-model="type_contract.slug"
+            value="СМЗ"
+            label="СМЗ"
+            hide-details
+          ></v-checkbox>
+          <v-checkbox
+            v-model="type_contract.slug"
+            value="Кандидат"
+            label="Кандидат"
+            hide-details
+          ></v-checkbox>
         </div>
         <v-divider class="mt-3"></v-divider>
         <v-row class="mt-6 d-flex justify-space-evenly">
-          <v-btn variant="text" class="bg-green" width="253.5" height="46">
+          <v-btn
+            @click="$emit('filterList', filterList)"
+            variant="text"
+            class="bg-green"
+            width="253.5"
+            height="46"
+          >
             Применить
           </v-btn>
-          <v-btn variant="text" class="bg-grey" width="253.5" height="46">
+          <v-btn
+            @click="$emit('resetFiltr', reset())"
+            variant="text"
+            class="bg-grey"
+            width="253.5"
+            height="46"
+          >
             Отчистить
           </v-btn>
         </v-row>
@@ -125,32 +96,43 @@
   </div>
 </template>
 
-<script>
-export default {
-  data: () => ({
-    dialog: false,
-    pas: '',
-    date: ''
-  }),
-};
-</script>
+<script setup>
+import { ref } from "vue";
+import modalForm from "./modalForm.vue";
 
-<style>
-.sub-txt {
-  font-weight: 500;
-  font-size: 15px;
-  line-height: 120%;
-}
-.v-label.v-field-label {
-  top: 13px;
-}
-.v-label {
-  margin-bottom: 0px;
-  padding-bottom: 0px;
-  font-size: 15px;
-}
-.v-checkbox {
-  height: 30px;
-  margin-left: -10px;
-}
-</style>
+let country = ref({ countryTitle: "" });
+
+let gender = ref({ genderTitle: "" });
+
+let type_contract = ref({ slug: "" });
+
+let position = ref({ name: "" });
+
+const filterList = [];
+
+const emit = defineEmits(["inFocus", "filterList"], ["inFocus", "resetFiltr"]);
+
+filterList.push(country.value);
+filterList.push(gender.value);
+filterList.push(type_contract.value);
+filterList.push(position.value);
+
+const reset = () => {
+  let j = filterList.length;
+  filterList.slice(0, j);
+  country.value.countryTitle = "";
+  gender.value.genderTitle = "";
+  type_contract.value.slug = "";
+  position.value.name = "";
+};
+
+// const addFilter = () => {
+//   filterList.forEach((i)=>{
+//     console.log(Object.values(i)[0] === "")
+//     if (Object.values(i)[0] === "") {
+//       let j = filterList.indexOf(i);
+//       filterList.value.splice(j, 1);
+//     }
+//   })
+// };
+</script>

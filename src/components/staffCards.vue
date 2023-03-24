@@ -7,12 +7,12 @@
     <div>
       <v-input class="flex-column px-7 pt-7">
         <v-text-field
-          @keydown.enter="searchCard"
+          @keydown:enter="searchCard"
+          @input="inputSearch"
           v-model="search"
           append-inner-icon="mdi-magnify"
           bg-color="#E8F1F4"
           placeholder="Поиск сотрудника"
-          @input="inputSearch"
           persistent-hint
           hint="Например: Иванов Иван"
           type="text"
@@ -24,7 +24,26 @@
     </div>
     <div class="mx-10 mt-7">
       <h1>Список сотрудников</h1>
-      <staff-tabs />
+      <div class="d-flex tabs mt-2">
+        <v-chip-group multiple class="text-primar">
+          <v-chip
+            @click="tags = []"
+            class="rounded-pill"
+            :style="`border: 1px solid #B0BCC7; color: #B0BCC7;`"
+          >
+            Весь список
+          </v-chip>
+          <v-chip
+            v-for="i in tagList"
+            :key="(i.title, i.color)"
+            @click="next(i.title) & filteredTabs()"
+            class="rounded-pill"
+            :style="`border: 1px solid ${i.color}; color: ${i.color};`"
+          >
+            {{ i.title }}
+          </v-chip>
+        </v-chip-group>
+      </div>
     </div>
 
     <div>
@@ -61,14 +80,14 @@
               ИНН {{ t.inn }}
             </div>
             <div class="bg-green rounded ml-4 px-1" style="font-size: 13px">
-              {{ t.type_contract.title }}
+              {{ t.type_contract.slug }}
             </div>
             <div class="px-1 ml-4" style="font-size: 14px">
               {{ t.position.name }}
             </div>
           </div>
           <div class="ml-2 mt-2 d-md-inline-flex">
-            <v-img :src="t.country.icon" height="20" width="20"> </v-img>
+            <v-img :src="`${t.country.icon}`" height="20" width="20"> </v-img>
             <div class="txt-content ml-3">
               {{ t.country.slug }} {{ t.series }} {{ t.number }}
             </div>
@@ -84,7 +103,10 @@
             <div class="txt-content ml-3">Пол: {{ t.gender.title }}</div>
           </div>
           <div class="ml-2 mt-2">
-            <p class="bg-red rounded pa-1 txt-content d-inline-flex">
+            <p
+              class="rounded pa-1 txt-content d-inline-flex"
+              :style="`background-color: ${t.status.collor}`"
+            >
               {{ t.status.description }}
             </p>
           </div>
@@ -104,38 +126,130 @@
       </v-row>
     </div>
   </v-col>
+  <v-col cols="4" class="bg-white ml-8 pa-0 rounded-lg">
+    <form-staff @filter-list="filter" @reset-filtr="researchFiltr" />
+  </v-col>
 </template>
 
 <script setup>
-import staffTabs from "./staffTabs.vue";
-import { getList } from "../services.js";
+import * as _ from "lodash";
+import { getList, tagList } from "../services.js";
 import { computed, ref } from "vue";
+import formStaff from "./formStaff.vue";
 
 components: {
-  staffTabs;
+  formStaff;
 }
+const props = defineProps(["filter"]);
+const maxCards = ref(4);
+const search = ref("");
+const tags = ref([]);
+let staffFilter = ref([]);
 
-let maxCards = ref(4);
-
-let search = ref("");
-
-let staffList = () => {
-  return getList;
-};
-
+let  countrys = "";
+let  gender = "";
+let  contract = "";
+let  position = "";
 
 const searchCard = computed(() => {
-  return staffList().filter((j) => j.full_name.includes(search.value));
+  return (staffFilter.value = getList.filter((j) =>
+    j.full_name.includes(search.value)
+  ));
 });
 
+const researchFiltr = ()=>{
+  staffFilter.value = getList
+}
+
+const next = (i) => {
+  if (tags.value.length === 0 || !tags.value.includes(i)) {
+    tags.value.push(i);
+  } else {
+    let j = tags.value.indexOf(i);
+    tags.value.splice(j, 1);
+  }
+};
+
+const searchPosition = () => {
+  return (staffFilter.value = staffFilter.value.filter((j) =>
+    j.position.name.includes(position)
+  ));
+};
+
+const searchContract = () => {
+  return (staffFilter.value = staffFilter.value.filter((j) =>
+    j.type_contract.slug.includes(contract)
+  ));
+};
+
+const searchGender = () => {
+  return (staffFilter.value = staffFilter.value.filter((j) =>
+    j.gender.title.includes(gender)
+  ));
+};
+
+const searchCountry = () => {
+  return (staffFilter.value = staffFilter.value.filter((j) =>
+    j.country.title.includes(countrys)
+  ));
+};
+
+const filter = (i) => {
+  let k = [];
+  i.forEach((n) => {
+    if (Object.values(n)[0] !== "") {
+      let j = i.indexOf(n);
+      k.push(n);
+    }
+  });
+
+
+  return (
+    k.forEach((j) => {
+    if (j.countryTitle) {
+      researchFiltr()
+      countrys = j.countryTitle;
+      searchCountry();
+    } else if (j.genderTitle) {
+      researchFiltr()
+      gender = j.genderTitle;
+      searchGender();
+    } else if (j.name) {
+      researchFiltr()
+      position = j.name;
+      searchPosition();
+    } else if (j.slug) {
+      researchFiltr()
+      contract = j.slug;
+      searchContract();
+    }
+    console.log(staffFilter.value);
+  })
+  )
+};
+
+const filteredTabs = () => {
+  let staff = [];
+  let k;
+  if (tags.value.length > 0) {
+    tags.value.forEach((i) => {
+      k = getList.filter((j) => j.status.title.includes(i));
+      staff.push(k);
+    });
+  } else {
+    staff = getList.filter((j) => j.status.title.includes(tags.value));
+  }
+  return (staffFilter.value = staff.flat());
+};
+
 const paginatedCards = computed(() => {
-  return searchCard.value.slice(0, maxCards.value);
+  return staffFilter.value.slice(0, maxCards.value);
 });
 
 const cardsView = () => {
   maxCards.value += 4;
+  console.log(props.filter);
 };
-
 </script>
 
 <style>
@@ -143,5 +257,25 @@ const cardsView = () => {
   font-weight: 400;
   font-size: 14px;
   line-height: 130%;
+}
+h1 {
+  font-size: 26px;
+}
+.sub-txt {
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 120%;
+}
+.v-label.v-field-label {
+  top: 13px;
+}
+.v-label {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+  font-size: 15px;
+}
+.v-checkbox {
+  height: 30px;
+  margin-left: -10px;
 }
 </style>

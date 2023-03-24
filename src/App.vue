@@ -1,26 +1,18 @@
 <template >
   <v-app class="bg-grey-lighten-4">
     <v-row class="flex-nowrap mt-10 ms-12">
-      <staff-cards />
-      <v-col
-        cols="4"
-        style="max-width: 589px; max-height: 650px"
-        class="bg-white ml-8 pa-0 rounded-lg"
-      >
-        <form-staff></form-staff>
-      </v-col>
+      <staff-cards filter="fil"/>
     </v-row>
   </v-app>
 </template>
 
 <script setup>
 import staffCards from "./components/staffCards.vue";
-import formStaff from "./components/formStaff.vue";
 
 components: {
   staffCards;
-  formStaff;
 }
+
 </script>
 
 <style>

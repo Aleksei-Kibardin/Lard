@@ -8,16 +8,17 @@ async function postData(url, data) {
     return await res.json();  
 };
 
-async function getResoursce () {
-    const res = await fetch("http://localhost:3000/staffList")
+async function getResoursce (value) {
+    const res = await fetch(`http://localhost:3000/${value}`)
     .then(res => res.json())
     .then(data =>  data);
 
     return res;
 }
 
-let getList = await getResoursce()
+let getList = await getResoursce("staffList");
+let tagList = await getResoursce("tagList")
 
-export{getList};
+export{getList, tagList};
 
 export{postData};
