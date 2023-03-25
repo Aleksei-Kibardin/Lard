@@ -1,7 +1,7 @@
 <template>
   <v-col
     cols="8"
-    style="max-width: 1205px; min-height: 1202px"
+    style=" min-height: 1202px"
     class="bg-white pa-0"
   >
     <div>
@@ -34,9 +34,9 @@
           </v-chip>
           <v-chip
             v-for="i in tagList"
+            :class="{ 'text-white' : chipActive}"
             :key="(i.title, i.color)"
             @click="next(i.title) & filteredTabs()"
-            class="rounded-pill"
             :style="`border: 1px solid ${i.color}; color: ${i.color};`"
           >
             {{ i.title }}
@@ -113,7 +113,8 @@
       </v-card>
       <v-row class="d-flex justify-center mt-5">
         <v-btn
-          @click="cardsView()"
+          v-if="active === true"
+          @click="cardsView() & activeBtn()"
           prepend-icon="mdi-autorenew"
           variant="outlined"
           width="186"
@@ -144,8 +145,9 @@ const maxCards = ref(4);
 const search = ref("");
 const tags = ref([]);
 let staffFilter = ref([]);
-let obj = {}
+let active = ref(true)
 
+let obj = ref({});
 let countrys = "";
 let gender = "";
 let contract = "";
@@ -157,6 +159,13 @@ const searchCard = computed(() => {
   ));
 });
 
+const activeBtn = ()=>{
+  if(maxCards.value > staffFilter.value.length){
+    active = false
+  }else{
+
+  }
+}
 
 const next = (i) => {
   if (tags.value.length === 0 || !tags.value.includes(i)) {
