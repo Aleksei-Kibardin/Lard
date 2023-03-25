@@ -8,7 +8,6 @@
       <v-input class="flex-column px-7 pt-7">
         <v-text-field
           @keydown:enter="searchCard"
-          @input="inputSearch"
           v-model="search"
           append-inner-icon="mdi-magnify"
           bg-color="#E8F1F4"
@@ -127,7 +126,7 @@
     </div>
   </v-col>
   <v-col cols="4" class="bg-white ml-8 pa-0 rounded-lg">
-    <form-staff @filter-list="filter" @reset-filtr="researchFiltr" />
+    <form-staff @filter-list="filter" @post-card="obj" :staffFilter="staffFilter" />
   </v-col>
 </template>
 
@@ -140,11 +139,12 @@ import formStaff from "./formStaff.vue";
 components: {
   formStaff;
 }
-const props = defineProps(["filter"]);
+
 const maxCards = ref(4);
 const search = ref("");
 const tags = ref([]);
 let staffFilter = ref([]);
+let obj = {}
 
 let countrys = "";
 let gender = "";
@@ -157,9 +157,6 @@ const searchCard = computed(() => {
   ));
 });
 
-const researchFiltr = () => {
-  staffFilter.value = getList;
-};
 
 const next = (i) => {
   if (tags.value.length === 0 || !tags.value.includes(i)) {
@@ -171,7 +168,8 @@ const next = (i) => {
 };
 
 
-// const filter = (k, obj, value, j) => {
+
+// const filters = (k, obj, value, j) => {
 //   if (j === name) {
 //     _.find(obj, (i) => {
 //       if (i.name === `${value}`) {
@@ -195,7 +193,6 @@ const next = (i) => {
 //     });
 //   }
 // };
-
 
 const searchPosition = () => {
   return (staffFilter.value = staffFilter.value.filter((j) =>
@@ -231,19 +228,15 @@ const filter = (i) => {
   return (
     k.forEach((j) => {
     if (j.countryTitle) {
-      researchFiltr()
       countrys = j.countryTitle;
       searchCountry();
     } else if (j.genderTitle) {
-      researchFiltr()
       gender = j.genderTitle;
       searchGender();
     } else if (j.name) {
-      researchFiltr()
       position = j.name;
       searchPosition();
     } else if (j.slug) {
-      researchFiltr()
       contract = j.slug;
       searchContract();
     }
@@ -251,6 +244,9 @@ const filter = (i) => {
   })
   )
 };
+const nextList = computed(()=>{
+  return staffFilter.value = getList
+})
 
 const filteredTabs = () => {
   let staff = [];
@@ -272,7 +268,7 @@ const paginatedCards = computed(() => {
 
 const cardsView = () => {
   maxCards.value += 4;
-  console.log(props.filter);
+  console.log(getList);
 };
 </script>
 

@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-row justify="center">
-      <modal-form/>
+      <modal-form @add-cards="addList"/>
     </v-row>
     <v-divider></v-divider>
     <div>
@@ -110,6 +110,8 @@ let position = ref({ name: "" });
 
 const filterList = [];
 
+const props = defineProps(["staffFilter"]);
+
 const emit = defineEmits(["inFocus", "filterList"], ["inFocus", "resetFiltr"]);
 
 filterList.push(country.value);
@@ -126,13 +128,7 @@ const reset = () => {
   position.value.name = "";
 };
 
-// const addFilter = () => {
-//   filterList.forEach((i)=>{
-//     console.log(Object.values(i)[0] === "")
-//     if (Object.values(i)[0] === "") {
-//       let j = filterList.indexOf(i);
-//       filterList.value.splice(j, 1);
-//     }
-//   })
-// };
+const addList = (i) => {
+props.staffFilter.unshift(i)
+};
 </script>

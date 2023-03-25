@@ -139,7 +139,7 @@
         <v-btn
           color="blue-darken-1"
           variant="text"
-          @click="(dialog = false), save()"
+          @click=" $emit('addCards', save()) & (dialog = false)"
         >
           Save
         </v-btn>
@@ -152,6 +152,7 @@
 import * as _ from "lodash";
 import { ref } from "vue";
 import {
+  getList,
   postData,
   tagList,
   countriesList,
@@ -221,14 +222,16 @@ const autocomplete = (k, obj, value, j) => {
 const title = 'title'
 const name = 'name'
 
+
 const save = () => {
   autocomplete(stack.value.country, countriesList, stack.value.country.title, title);
   autocomplete(stack.value.type_contract, types_contractList, stack.value.type_contract.title, title);
   autocomplete(stack.value.gender, gendersList, stack.value.gender.title, title);
   autocomplete(stack.value.position, positionsList, stack.value.position.name, name);
   autocomplete(stack.value.status, tagList, stack.value.status.title ,title);
-  const json = JSON.stringify(stack.value);
-  console.log(json)
-  postData(json);
+  // const json = JSON.stringify(stack.value);
+  // console.log(json)
+  // postData(json);
+  return stack.value
 };
 </script>
