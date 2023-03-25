@@ -27,7 +27,7 @@
       <div class="d-flex tabs mt-2">
         <v-chip-group multiple class="text-primar">
           <v-chip
-            @click="tags = []"
+            @click="staffFilter = getList"
             class="rounded-pill"
             :style="`border: 1px solid #B0BCC7; color: #B0BCC7;`"
           >
@@ -105,7 +105,7 @@
           <div class="ml-2 mt-2">
             <p
               class="rounded pa-1 txt-content d-inline-flex"
-              :style="`background-color: ${t.status.collor}`"
+              :style="`background-color: ${t.status.color}`"
             >
               {{ t.status.description }}
             </p>
@@ -194,38 +194,72 @@ const searchCountry = () => {
   ));
 };
 
-const filter = (i) => {
-  let k = [];
-  i.forEach((n) => {
-    if (Object.values(n)[0] !== "") {
-      let j = i.indexOf(n);
-      k.push(n);
-    }
-  });
+const filter = (k, obj, value, j)=>{
+  switch (j) {
+    case name:
+      _.find(obj, (i) => {
+      if (i.name === `${value}`) {
+        console.log(i)
+        return i
+        }
+      })
+      break;
+    case slug:
+
+      _.find(obj, (i) => {
+      if (i.title === `${value}`) {
+        console.log(i)
+        return i
+        }
+      })
+
+      break;
+    default:
+      _.find(obj, (i) => {
+      if (i.title === `${value}`) {
+        console.log(i)
+        return i
+        }
+      })
+  }
+}
+
+const filterReturn = (i) => {
+  
 
 
-  return (
-    k.forEach((j) => {
-    if (j.countryTitle) {
-      researchFiltr()
-      countrys = j.countryTitle;
-      searchCountry();
-    } else if (j.genderTitle) {
-      researchFiltr()
-      gender = j.genderTitle;
-      searchGender();
-    } else if (j.name) {
-      researchFiltr()
-      position = j.name;
-      searchPosition();
-    } else if (j.slug) {
-      researchFiltr()
-      contract = j.slug;
-      searchContract();
-    }
-    console.log(staffFilter.value);
-  })
-  )
+
+  // let k = [];
+  // i.forEach((n) => {
+  //   if (Object.values(n)[0] !== "") {
+  //     let j = i.indexOf(n);
+  //     k.push(n);
+  //   }
+  // });
+
+
+  // return (
+  //   k.forEach((j) => {
+  //   if (j.countryTitle) {
+  //     researchFiltr()
+  //     countrys = j.countryTitle;
+  //     searchCountry();
+  //   } else if (j.genderTitle) {
+  //     researchFiltr()
+  //     gender = j.genderTitle;
+  //     searchGender();
+  //   } else if (j.name) {
+  //     researchFiltr()
+  //     position = j.name;
+  //     searchPosition();
+  //   } else if (j.slug) {
+  //     researchFiltr()
+  //     contract = j.slug;
+  //     searchContract();
+  //   }
+  filter(i, staffFilter.country, )
+    console.log(i);
+  
 };
 
 const filteredTabs = () => {
@@ -266,14 +300,7 @@ h1 {
   font-size: 15px;
   line-height: 120%;
 }
-.v-label.v-field-label {
-  top: 13px;
-}
-.v-label {
-  margin-bottom: 0px;
-  padding-bottom: 0px;
-  font-size: 15px;
-}
+
 .v-checkbox {
   height: 30px;
   margin-left: -10px;

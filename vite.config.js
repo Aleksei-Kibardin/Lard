@@ -16,7 +16,6 @@ export default defineConfig({
     vuetify({
       autoImport: true,
     }),
-    '@plugins/v-mask.js',
   ],
   define: { 'process.env': {} },
   resolve: {

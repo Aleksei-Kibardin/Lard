@@ -111,7 +111,7 @@
       },
       "status": {
         "tag_id": 1,
-        "collor": "#E52E2E",
+        "color": "#E52E2E",
         "title": "Критические",
         "description": "Истекают все документы"
       }
@@ -146,7 +146,7 @@
       },
       "status": {
         "tag_id": 0,
-        "collor": "#E2BD06",
+        "color": "#E2BD06",
         "title": "Проблемные",
         "description": "Истекает патент"
       }
@@ -181,7 +181,7 @@
       },
       "status": {
         "tag_id": 0,
-        "collor": "#E2BD06",
+        "color": "#E2BD06",
         "title": "Проблемные",
         "description": "Истекает патент"
       }
@@ -216,7 +216,7 @@
       },
       "status": {
         "tag_id": 2,
-        "collor": "#00B6ED",
+        "color": "#00B6ED",
         "title": "Есть замечания",
         "description": "Пропустил медосмотр"
       }
@@ -251,7 +251,7 @@
       },
       "status": {
         "tag_id": 3,
-        "collor": "#00AE5B",
+        "color": "#00AE5B",
         "title": "Выполнено",
         "description": "Прошел все процедуры"
       }

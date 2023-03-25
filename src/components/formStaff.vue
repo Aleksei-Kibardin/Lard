@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-row justify="center">
-      <form-modal/>
+      <modal-form/>
     </v-row>
     <v-divider></v-divider>
     <div>
@@ -13,7 +13,7 @@
             <v-select
               v-model="country.countryTitle"
               :items="['Россия', 'Узбекистан', 'Таджикистан']"
-              class="pb-1"
+              class="pb-1 mt-2"
               label="Все страны"
               bg-color="#E8F1F4"
               variant="outlined"
@@ -25,7 +25,7 @@
             <v-select
               v-model="gender.genderTitle"
               :items="['мужской', 'женский']"
-              class="pb-1"
+              class="pb-1 mt-2"
               label="Без разницы"
               bg-color="#E8F1F4"
               variant="outlined"
@@ -38,7 +38,7 @@
           label="Все должности"
           v-model="position.name"
           :items="['промышленный альпинист', 'менеджер по продажам']"
-          class="pb-1"
+          class="pb-1 mt-2"
           bg-color="#E8F1F4"
           variant="outlined"
           return-object
@@ -100,9 +100,9 @@
 import { ref } from "vue";
 import modalForm from "./modalForm.vue";
 
-let country = ref({ countryTitle: "" });
+let country = ref({ title: "" });
 
-let gender = ref({ genderTitle: "" });
+let gender = ref({ title: "" });
 
 let type_contract = ref({ slug: "" });
 

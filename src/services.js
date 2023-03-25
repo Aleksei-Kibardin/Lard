@@ -1,5 +1,5 @@
-async function postData(url, data) {
-    const res = await fetch(url, {
+async function postData(data) {
+    const res = await fetch("http://localhost:3000/staffList", {
         method: "POST",
         headers: {'Content-type': 'application/json'},
         body: data
@@ -16,9 +16,13 @@ async function getResoursce (value) {
     return res;
 }
 
-let getList = await getResoursce("staffList");
-let tagList = await getResoursce("tagList")
+const getList = await getResoursce("staffList");
+const tagList = await getResoursce("tagList")
+const countriesList = await getResoursce("countries")
+const gendersList = await getResoursce("genders")
+const positionsList = await getResoursce("positions")
+const types_contractList = await getResoursce("types_contract")
 
-export{getList, tagList};
+export{getList, tagList, countriesList, gendersList, positionsList, types_contractList};
 
 export{postData};

@@ -14,6 +14,7 @@
     "roboto-fontface": "*",
     "v-mask": "^2.3.0",
     "vue": "^3.2.38",
+    "vue-the-mask": "^0.11.1",
     "vuetify": "^3.0.0",
     "vuetify-mask": "^1.1.2",
     "webfontloader": "^1.0.0"
