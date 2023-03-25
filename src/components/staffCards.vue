@@ -146,10 +146,10 @@ const search = ref("");
 const tags = ref([]);
 let staffFilter = ref([]);
 
-let  countrys = "";
-let  gender = "";
-let  contract = "";
-let  position = "";
+let countrys = "";
+let gender = "";
+let contract = "";
+let position = "";
 
 const searchCard = computed(() => {
   return (staffFilter.value = getList.filter((j) =>
@@ -157,9 +157,9 @@ const searchCard = computed(() => {
   ));
 });
 
-const researchFiltr = ()=>{
-  staffFilter.value = getList
-}
+const researchFiltr = () => {
+  staffFilter.value = getList;
+};
 
 const next = (i) => {
   if (tags.value.length === 0 || !tags.value.includes(i)) {
@@ -169,6 +169,33 @@ const next = (i) => {
     tags.value.splice(j, 1);
   }
 };
+
+
+// const filter = (k, obj, value, j) => {
+//   if (j === name) {
+//     _.find(obj, (i) => {
+//       if (i.name === `${value}`) {
+//         console.log(i);
+//         return i;
+//       }
+//     });
+//   } else if (j === slug) {
+//     _.find(obj, (i) => {
+//       if (i.slug === `${value}`) {
+//         console.log(i);
+//         return i;
+//       }
+//     });
+//   } else {
+//     _.find(obj, (i) => {
+//       if (i.title === `${value}`) {
+//         console.log(i);
+//         return i;
+//       }
+//     });
+//   }
+// };
+
 
 const searchPosition = () => {
   return (staffFilter.value = staffFilter.value.filter((j) =>
@@ -187,79 +214,42 @@ const searchGender = () => {
     j.gender.title.includes(gender)
   ));
 };
-
 const searchCountry = () => {
   return (staffFilter.value = staffFilter.value.filter((j) =>
     j.country.title.includes(countrys)
   ));
 };
 
-const filter = (k, obj, value, j)=>{
-  switch (j) {
-    case name:
-      _.find(obj, (i) => {
-      if (i.name === `${value}`) {
-        console.log(i)
-        return i
-        }
-      })
-      break;
-    case slug:
-
-      _.find(obj, (i) => {
-      if (i.title === `${value}`) {
-        console.log(i)
-        return i
-        }
-      })
-
-      break;
-    default:
-      _.find(obj, (i) => {
-      if (i.title === `${value}`) {
-        console.log(i)
-        return i
-        }
-      })
-  }
-}
-
-const filterReturn = (i) => {
-  
-
-
-
-  // let k = [];
-  // i.forEach((n) => {
-  //   if (Object.values(n)[0] !== "") {
-  //     let j = i.indexOf(n);
-  //     k.push(n);
-  //   }
-  // });
-
-
-  // return (
-  //   k.forEach((j) => {
-  //   if (j.countryTitle) {
-  //     researchFiltr()
-  //     countrys = j.countryTitle;
-  //     searchCountry();
-  //   } else if (j.genderTitle) {
-  //     researchFiltr()
-  //     gender = j.genderTitle;
-  //     searchGender();
-  //   } else if (j.name) {
-  //     researchFiltr()
-  //     position = j.name;
-  //     searchPosition();
-  //   } else if (j.slug) {
-  //     researchFiltr()
-  //     contract = j.slug;
-  //     searchContract();
-  //   }
-  filter(i, staffFilter.country, )
-    console.log(i);
-  
+const filter = (i) => {
+  let k = [];
+  i.forEach((n) => {
+    if (Object.values(n)[0] !== "") {
+      let j = i.indexOf(n);
+      k.push(n);
+    }
+  });
+  return (
+    k.forEach((j) => {
+    if (j.countryTitle) {
+      researchFiltr()
+      countrys = j.countryTitle;
+      searchCountry();
+    } else if (j.genderTitle) {
+      researchFiltr()
+      gender = j.genderTitle;
+      searchGender();
+    } else if (j.name) {
+      researchFiltr()
+      position = j.name;
+      searchPosition();
+    } else if (j.slug) {
+      researchFiltr()
+      contract = j.slug;
+      searchContract();
+    }
+    console.log(staffFilter.value);
+  })
+  )
 };
 
 const filteredTabs = () => {
