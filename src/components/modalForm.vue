@@ -139,7 +139,7 @@
         <v-btn
           color="blue-darken-1"
           variant="text"
-          @click=" $emit('addCards', save()) & (dialog = false)"
+          @click=" $emit('addCards', save()) & (dialog = false) & reset()"
         >
           Save
         </v-btn>
@@ -153,7 +153,7 @@ import * as _ from "lodash";
 import { ref } from "vue";
 import {
   getList,
-  postData,
+  // postData,
   tagList,
   countriesList,
   gendersList,
@@ -161,47 +161,47 @@ import {
   types_contractList,
 } from "../services.js";
 
+let post = true
 let dialog = ref(false);
 const stack = ref({
-  full_name: "",
-  series: "",
-  number: "",
-  inn: "",
-  address: "",
-  date_birth: "",
-  age: "",
+  full_name: null,
+  series: null,
+  number: null,
+  inn: null,
+  address: null,
+  date_birth: null,
+  age: null,
   type_contract: {
-    id: "",
-    title: "",
-    slug: "",
+    id: null,
+    title: null,
+    slug: null,
   },
   gender: {
-    id: "",
-    title: "",
-    slug: "",
+    id: null,
+    title: null,
+    slug: null,
   },
   country: {
-    id: "",
-    title: "",
-    slug: "",
-    icon: "",
+    id: null,
+    title: null,
+    slug: null,
+    icon: null,
   },
   position: {
-    id: "",
-    name: "",
+    id: null,
+    name: null,
   },
   status: {
-    id: "",
-    color: "",
-    title: "",
-    description: ""
+    id: null,
+    color: null,
+    title: null,
+    description: null
   },
 });
+let json;
 
-const validNuber = (i)=>{
-if (i === !number){
-  i = "вводите только цифры!"
-}
+const reset = ()=>{
+return _.forEach(stack.value, (v)=>{v = null})
 }
 
 const autocomplete = (k, obj, value, j) => {
@@ -226,7 +226,7 @@ const autocomplete = (k, obj, value, j) => {
 };
 
 const title = 'title'
-const name = 'name'
+const name = _.cloneDeep(stack.value);  
 
 
 const save = () => {
@@ -235,9 +235,18 @@ const save = () => {
   autocomplete(stack.value.gender, gendersList, stack.value.gender.title, title);
   autocomplete(stack.value.position, positionsList, stack.value.position.name, name);
   autocomplete(stack.value.status, tagList, stack.value.status.title ,title);
-  // const json = JSON.stringify(stack.value);
-  // console.log(json)
+
+  _.forEach(stack.value, (o)=>{if (o === null || o.length === 0) {
+    return json = false
+  }else{
+    json = _.cloneDeep(stack.value)
+  }})
+  if (json !== false){
   // postData(json);
-  return stack.value
+  getList.unshift(json)
+}
+
+  return json
+  
 };
 </script>

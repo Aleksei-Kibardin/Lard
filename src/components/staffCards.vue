@@ -37,9 +37,9 @@
             :class="{ 'text-white' : chipActive}"
             :key="(i.title, i.color)"
             @click="next(i.title) & filteredTabs()"
-            :style="`border: 1px solid ${i.color}; color: ${i.color};`"
+            :style="`border: 1px solid rgb(${i.color}); color: rgb(${i.color});`"
           >
-            {{ i.title }}
+            <div>{{ i.title }}</div>
           </v-chip>
         </v-chip-group>
       </div>
@@ -127,7 +127,7 @@
     </div>
   </v-col>
   <v-col cols="4" class="bg-white ml-8 pa-0 rounded-lg">
-    <form-staff @filter-list="filter" @post-card="obj" :staffFilter="staffFilter" @resetFiltr="reset"/>
+    <form-staff @filter-list="filter" :staffFilter="staffFilter" @resetFiltr="reset"/>
   </v-col>
 </template>
 
@@ -276,6 +276,7 @@ const filteredTabs = () => {
 };
 
 const paginatedCards = computed(() => {
+  console.log(obj.value)
   return staffFilter.value.slice(0, maxCards.value);
 });
 
@@ -303,5 +304,11 @@ h1 {
 .v-checkbox {
   height: 30px;
   margin-left: -10px;
+}
+.v-chip .v-chip--selected{
+  color: white !important;
+}
+.v-chip-group .v-chip.v-chip--selected:not(.v-chip--disabled) .v-chip__overlay {
+    opacity: 0.5;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div style="max-width: 1200px">
+  <div>
     <v-row justify="center">
       <modal-form @add-cards="addList"/>
     </v-row>
@@ -101,13 +101,13 @@ import { ref } from "vue";
 import modalForm from "./modalForm.vue"; 
 import {getList} from "../services"
 
-let country = ref({ countryTitle: "" });
+let country = ref({ countryTitle: null });
 
-let gender = ref({ genderTitle: "" });
+let gender = ref({ genderTitle: null });
 
-let type_contract = ref({ slug: "" });
+let type_contract = ref({ slug: null });
 
-let position = ref({ name: "" });
+let position = ref({ name: null });
 
 const filterList = [];
 
@@ -123,15 +123,25 @@ filterList.push(position.value);
 const resetFiltr = () => {
   let j = filterList.length;
   filterList.slice(0, j);
-  country.value.countryTitle = "";
-  gender.value.genderTitle = "";
-  type_contract.value.slug = "";
-  position.value.name = "";
+  country.value.countryTitle = null;
+  gender.value.genderTitle = null;
+  type_contract.value.slug = null;
+  position.value.name = null;
   return getList
 };
 
 const addList = (i) => {
-getList.unshift(i)
-props.staffFilter.unshift(i)
+  if(i !== false){
+    props.staffFilter.unshift(i)
+  } else {
+    console.log(i)
+    alert("заполните все поля")
+  }
+
 };
 </script>
+<style>
+.v-input--density-default {
+  --v-input-padding-top: 8px;
+}
+</style>
