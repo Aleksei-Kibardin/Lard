@@ -98,7 +98,8 @@
 
 <script setup>
 import { ref } from "vue";
-import modalForm from "./modalForm.vue";
+import modalForm from "./modalForm.vue"; 
+import {getList} from "../services"
 
 let country = ref({ countryTitle: "" });
 
@@ -130,5 +131,6 @@ const reset = () => {
 
 const addList = (i) => {
 props.staffFilter.unshift(i)
+getList.unshift(i)
 };
 </script>

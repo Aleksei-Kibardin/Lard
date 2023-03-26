@@ -40,7 +40,7 @@
             </v-col>
             <v-divider></v-divider>
             <v-col cols="12" sm="6" md="4">
-              <v-text-field v-model="stack.age" label="возраст"></v-text-field>
+              <v-text-field v-model="stack.age" label="возраст" ></v-text-field>
             </v-col>
             <v-col cols="12" sm="6" md="4">
               <v-text-field
@@ -197,6 +197,12 @@ const stack = ref({
     description: ""
   },
 });
+
+const validNuber = (i)=>{
+if (i === !number){
+  i = "вводите только цифры!"
+}
+}
 
 const autocomplete = (k, obj, value, j) => {
   if (j === name) {

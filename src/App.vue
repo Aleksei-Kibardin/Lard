@@ -55,7 +55,5 @@ body {
   font-weight: 400;
   font-size: 14px;
 }
-.v-theme--light {
-  --v-theme-primary: 255, 255, 255 !important;
-}
+
 </style>

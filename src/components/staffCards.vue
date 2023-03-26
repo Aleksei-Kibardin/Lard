@@ -86,7 +86,7 @@
             </div>
           </div>
           <div class="ml-2 mt-2 d-md-inline-flex">
-            <v-img :src="`${t.country.icon}`" height="20" width="20"> </v-img>
+            <v-img :src="`/src/assets/${t.country.icon}`" height="20" width="20"> </v-img>
             <div class="txt-content ml-3">
               {{ t.country.slug }} {{ t.series }} {{ t.number }}
             </div>
