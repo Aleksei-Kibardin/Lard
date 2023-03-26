@@ -127,7 +127,7 @@
     </div>
   </v-col>
   <v-col cols="4" class="bg-white ml-8 pa-0 rounded-lg">
-    <form-staff @filter-list="filter" @post-card="obj" :staffFilter="staffFilter" />
+    <form-staff @filter-list="filter" @post-card="obj" :staffFilter="staffFilter" @resetFiltr="reset"/>
   </v-col>
 </template>
 
@@ -152,6 +152,10 @@ let countrys = "";
 let gender = "";
 let contract = "";
 let position = "";
+
+const reset = (i)=>{
+  staffFilter.value = i
+}
 
 const searchCard = computed(() => {
   return (staffFilter.value = getList.filter((j) =>

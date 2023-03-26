@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="max-width: 1200px">
     <v-row justify="center">
       <modal-form @add-cards="addList"/>
     </v-row>
@@ -82,7 +82,7 @@
             Применить
           </v-btn>
           <v-btn
-            @click="$emit('resetFiltr', reset())"
+            @click="$emit('resetFiltr', resetFiltr())"
             variant="text"
             class="bg-grey"
             width="253.5"
@@ -120,17 +120,18 @@ filterList.push(gender.value);
 filterList.push(type_contract.value);
 filterList.push(position.value);
 
-const reset = () => {
+const resetFiltr = () => {
   let j = filterList.length;
   filterList.slice(0, j);
   country.value.countryTitle = "";
   gender.value.genderTitle = "";
   type_contract.value.slug = "";
   position.value.name = "";
+  return getList
 };
 
 const addList = (i) => {
-props.staffFilter.unshift(i)
 getList.unshift(i)
+props.staffFilter.unshift(i)
 };
 </script>
