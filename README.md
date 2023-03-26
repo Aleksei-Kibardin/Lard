@@ -25,7 +25,7 @@ npm install
 ```
 
 # npm
-npm run dev
+npm run dev (если вдруг настройка сбросится то надо запускать на порту 8080)
 
 # npx json-server --watch state.json
 
