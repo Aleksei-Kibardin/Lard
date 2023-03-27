@@ -245,7 +245,7 @@ const save = () => {
   // postData(json);
   getList.unshift(json)
 }
-
+  console.log(json)
   return json
   
 };

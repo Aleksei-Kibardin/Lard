@@ -231,6 +231,7 @@ const searchCountry = () => {
 };
 
 const filter = (i) => {
+  staffFilter.value = getList
   let k = [];
   i.forEach((n) => {
     if (Object.values(n)[0] !== "") {
@@ -253,7 +254,6 @@ const filter = (i) => {
       contract = j.slug;
       searchContract();
     }
-    console.log(staffFilter.value);
   })
   )
 };
@@ -276,7 +276,6 @@ const filteredTabs = () => {
 };
 
 const paginatedCards = computed(() => {
-  console.log(obj.value)
   return staffFilter.value.slice(0, maxCards.value);
 });
 
@@ -305,9 +304,7 @@ h1 {
   height: 30px;
   margin-left: -10px;
 }
-.v-chip .v-chip--selected{
-  color: white !important;
-}
+
 .v-chip-group .v-chip.v-chip--selected:not(.v-chip--disabled) .v-chip__overlay {
     opacity: 0.5;
 }
