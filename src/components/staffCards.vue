@@ -104,7 +104,7 @@
           <div class="ml-2 mt-2">
             <p
               class="rounded pa-1 txt-content d-inline-flex"
-              :style="`background-color: ${t.status.color}`"
+              :style="`background-color: rgb(${t.status.color})`"
             >
               {{ t.status.description }}
             </p>
