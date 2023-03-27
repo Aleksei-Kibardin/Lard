@@ -198,26 +198,28 @@ const stack = ref({
     description: null
   },
 });
+const clone = _.cloneDeep(stack.value)
+
 let json;
 
 const reset = ()=>{
-return _.forEach(stack.value, (v)=>{v = null})
+  stack.value = clone
 }
 
 const autocomplete = (k, obj, value, j) => {
   if (j === name) {
       _.find(obj, (i) => {
-    if (i.name === `${value}`) {
+    if (i.name === `${value}` || i.name !== null || i.name !== "") {
       console.log(i)
       return _.assign(k, i)
-    }
+    }else post = false
   })
   }else{
     _.find(obj, (i) => {
-    if (i.title === `${value}`) {
+    if (i.title === `${value}` || i.title !== null || i.title !== "") {
       console.log(i)
       return _.assign(k, i)
-    }
+    }else  post = false
   })
   }
 
@@ -236,15 +238,20 @@ const save = () => {
   autocomplete(stack.value.position, positionsList, stack.value.position.name, name);
   autocomplete(stack.value.status, tagList, stack.value.status.title ,title);
 
-  _.forEach(stack.value, (o)=>{if (o === null || o.length === 0) {
+  _.forEach(stack.value, (o)=>{if (o === null || o === "" || o.description === null ||  o.description === "") {
     return json = false
   }else{
-    json = _.cloneDeep(stack.value)
+    return json = _.cloneDeep(stack.value)
   }})
-  if (json !== false){
+
+  
+if (json !== false && post !== false){
+    console.log(post)
   // postData(json);
   getList.unshift(json)
+  reset()
 }
+console.log(post)
   console.log(json)
   return json
   
