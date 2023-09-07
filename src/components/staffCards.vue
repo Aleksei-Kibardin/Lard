@@ -13,7 +13,6 @@
           bg-color="#E8F1F4"
           placeholder="Поиск сотрудника"
           persistent-hint
-          hint="Например: Иванов Иван"
           type="text"
           variant="outlined"
         >
