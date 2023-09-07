@@ -43,7 +43,7 @@
           variant="outlined"
           return-object
         ></v-select>
-        <div class="sub-txt mt-n3">Тип договора</div>
+        <div class="sub-txt mt-1">Тип договора</div>
         <div>
           <v-checkbox
             v-model="type_contract.slug"
